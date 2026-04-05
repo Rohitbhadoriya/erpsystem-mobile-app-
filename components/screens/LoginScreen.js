@@ -8,17 +8,43 @@ import {
   SafeAreaView,
   ScrollView,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 
 import AuthHeader from '../AuthHeader';
 import { COLORS } from '../constants/Color';
 import { useNavigation } from '@react-navigation/native';
+import {loginUser} from '../api/authApi'
+import useAuthStore from '../store/authStore';
+import { useMutation } from '@tanstack/react-query';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const setAuth = useAuthStore((state)=>state.setAuth)
+
+  const mutation  = useMutation({
+    mutationFn:loginUser,
+    onSuccess:(data)=>{
+        Alert.alert('🎉 Success!', 'Login ho gaya! Welcome back.');
+        setAuth(data.user,data.token);
+    },
+    onError:(error)=>{
+        const msg = error.response?.data?.message || error.message || 'Kuch galat ho gaya';
+        Alert.alert('❌ Failed', msg);
+    }
+
+  })
+  const handlelogin = ()=>{
+    if(!email || !password){
+        Alert.alert('Error','Email aur Password dono chahiye');
+        return;
+    }
+    const credentials = {email,password}
+    mutation.mutate(credentials);
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -60,7 +86,11 @@ const LoginScreen = () => {
           </TouchableOpacity>
 
           {/* Login Button */}
-          <TouchableOpacity style={styles.loginButton} activeOpacity={0.85}>
+          <TouchableOpacity style={styles.loginButton} activeOpacity={0.85} onPress={handlelogin}
+          disabled={mutation.isLoading ||
+            !email || !password }
+
+          >
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
 

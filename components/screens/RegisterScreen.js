@@ -111,7 +111,7 @@ const RegisterScreen = () => {
 
             {/* Role Chips */}
             <View style={styles.roleContainer}>
-              {['Student', 'Teacher', 'Coach', 'Parent'].map((item) => (
+              {['Student', 'Teacher'].map((item) => (
                 <TouchableOpacity
                   key={item}
                   style={[
@@ -135,7 +135,7 @@ const RegisterScreen = () => {
             {/* Phone */}
             <TextInput
               style={styles.input}
-              placeholder="Phone (Optional)"
+              placeholder="Phone (*)"
               keyboardType="phone-pad"
               value={phone}
               onChangeText={setPhone}
