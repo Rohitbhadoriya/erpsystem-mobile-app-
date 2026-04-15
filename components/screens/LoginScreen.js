@@ -28,8 +28,18 @@ const LoginScreen = () => {
   const mutation  = useMutation({
     mutationFn:loginUser,
     onSuccess:(data)=>{
+        const{user,token} = data
         Alert.alert('🎉 Success!', 'Login ho gaya! Welcome back.');
-        setAuth(data.user,data.token);
+        setAuth(user,token);
+        // navigation wala code 
+        setTimeout(()=>{
+          if(user.role === 'admin'){
+            navigation.replace('AdminDashbaord')
+          } else{
+            navigation.replace('Register')
+          }
+
+        },8000) // thoda delays better for UI 
     },
     onError:(error)=>{
         const msg = error.response?.data?.message || error.message || 'Kuch galat ho gaya';

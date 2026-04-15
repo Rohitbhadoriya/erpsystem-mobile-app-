@@ -54,7 +54,7 @@ const RegisterScreen = () => {
       Alert.alert('Error', 'Sab required fields bharo');
       return;
     }
-
+    
     const userData = {
       name,
       email,

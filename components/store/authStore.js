@@ -13,7 +13,14 @@ const useAuthStore = create((set)=>({
         set({user:null,token:null});
         await AsyncStorage.removeItem('userToken');
         await AsyncStorage.removeItem('userData');
+    },
+    // Extra Helper 
+    isAdmin:()=>{
+        const user = useAuthStore.getState().user;
+        return user?.role === 'admin'
+
     }
+  
 })) 
 
 
@@ -47,3 +54,9 @@ export default useAuthStore;
 // zustand me hum action or reducer isliye nhi bnate h kyuki ye ek simple aur lightweight state management library h jisme hum directly state ko update kr skte h bina kisi boilerplate code ke 
 // isme hum ek function bnate h jo state ko update krta h aur usko store me set kr dete h taki wo app ke sare components me available ho jaye
 // yha pr zustand use krne iske mechansim phele state maintain krta h back of the secne or esa redux toolkit mein nhi hota h wha pr hum action reeducer bnate hai or usko dispatch krte h but yha pr hum directly state ko update kr dete h aur ye zustand ke andar hota h jo ki simple aur efficient hai
+// mere pass plate usey aam h thek or ek h polybag h usme bi aam h (Mango)
+// mango condtiton se check karawaung to wo true de degi 
+// agr === check karunga to wo false de degi 
+// == datatype check nhi krta h ki mujhe dono mein smiliar mango lage to mene mango return kr diya mtlb ki mene true de diya 
+// === datatype wo chekc ki dono ke item same h 1 and dono kis cheej rkhe hue h to usey ish time conidtion false milegi to hume return false kr dega smj aya
+

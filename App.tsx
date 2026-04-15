@@ -18,6 +18,12 @@ import  useAuthStore from './components/store/authStore'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import {createStackNavigator} from '@react-navigation/stack'
 import { NavigationContainer } from '@react-navigation/native';
+import AdminDashbaord from './components/screens/admin/AdminDashboardScreen'
+import AllUsers from './components/screens/admin/AllUsersScreen'
+import MyProfile from './components/screens/admin/MyProfileScreen'
+import AllBatches from './components/screens/admin/AllBatchesScreen'
+import CreateBatch from './components/screens/admin/CreateBatchScreen'
+
 
 const Stack = createStackNavigator();
 
@@ -40,6 +46,13 @@ function App() {
   <Stack.Navigator initialRouteName="Register" screenOptions={{ headerShown: false }}>
     <Stack.Screen name="Register" component={RegisterScreen} />
     <Stack.Screen name="Login" component={LoginScreen} />
+    <Stack.Screen name="AdminDashbaord" component={AdminDashbaord} />
+      <Stack.Screen name="AllUsers" component={AllUsers} />
+  <Stack.Screen name="MyProfile" component={MyProfile} />
+    <Stack.Screen name="AllBatches" component={AllBatches} />
+   <Stack.Screen name="CreateBatch" component={CreateBatch} />
+  
+      
   </Stack.Navigator>
 </NavigationContainer>
         
